@@ -8,6 +8,7 @@ function refreshWeather(response){//4. response von refreshWeather
     let timeElement=document.querySelector("#time");
     let date = new Date(response.data.time *1000);
     let iconElement = document.querySelector("#icon");//selecting the elemnt with de id of icon
+    console.log(response.data);
   
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;// construct an image html element based on the condition icon url based of the api and fibe at class of weather app icon and that is going to be the image ant that gets injected to the icon element
     cityElement.innerHTML = response.data.city;// so vermeide ich, dass Schreibfehler in der Stadt, also nur Groß und Kleinschreibung angezeigt werden, weil so wird immer die in der API city Data Stadt angegeben
