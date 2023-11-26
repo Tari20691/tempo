@@ -82,3 +82,18 @@ font-size: 28px;
 width: 88px;
 height: 88px;
 }
+.weather-forecast {
+    margin-top: 20px;
+    text-align: left;
+}
+.weather-forecast-date {
+  font-size: 16px;
+  color: black;  
+  opacity: 0.5;
+}
+.weather-class-temperature {
+    font-size: 13px;
+}
+.weather-forecast-temperature-min {
+    opacity: 0.5;
+}
