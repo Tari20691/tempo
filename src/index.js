@@ -17,6 +17,8 @@ function refreshWeather(response){//4. response von refreshWeather
     humidityElement.innerHTML=`${response.data.temperature.humidity}%`;
     windSpeedElement.innerHTML=`${response.data.wind.speed}km/h`;
     temperatureElement.innerHTML = Math.round(temperature); // temperstur runden
+
+    getForecast(response.data.city);
     }
 
     function formatDate(date) {
@@ -56,7 +58,16 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 searchCity("Berlin");//default city am Anfang wird jetzt immer Berlin sein
 
-function displayForecast() { //2 function calls the following 10 lines
+function getForecast(city) {
+    let apiKey = "o1b51294bd100044e1tab17f08833d34";
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+    axios(apiUrl).then(displayForecast);//here we call the function displayForecast
+}
+
+
+function displayForecast(response) { //2 function calls the following 10 lines
+    console.log(response.data);
+
     let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];// 3 Zuerst calles the den array der Tage
     let forecastHtml = "";// 4 eine neue empty HTML variable wird erstellt, aber da sollen eben all die Forecast data von unten rein
   
@@ -79,4 +90,4 @@ function displayForecast() { //2 function calls the following 10 lines
     let forecastElement = document.querySelector("#forecast");// when the loop is over we select the forecast Element and change the inner html mit der id forecast 
     forecastElement.innerHTML = forecastHtml;
   }
-displayForecast(); //1 we ware calling the function displayForecast() {
+
