@@ -55,3 +55,28 @@ let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 searchCity("Berlin");//default city am Anfang wird jetzt immer Berlin sein
+
+function displayForecast() { //2 function calls the following 10 lines
+    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];// 3 Zuerst calles the den array der Tage
+    let forecastHtml = "";// 4 eine neue empty HTML variable wird erstellt, aber da sollen eben all die Forecast data von unten rein
+  
+    days.forEach(function (day) {// 5 deswegen loopen wir zu den einzelnen Tagen, one at a time
+      forecastHtml =//6 variable forecast html soll be equal to the whole text below, but with the array of days in it
+        forecastHtml +
+        `
+        <div class="weather-forecast-day">
+          <div class="weather-forecast-date">${day}</div>
+          <div class="weather-forecast-icon">🌤️</div>
+          <div class="weather-forecast-temperatures">
+          <span class="weather-forecast-temperature-max">18°</span> 
+          <span class="weather-forecast-temperature-min">12°</span>  
+      </div>
+          </div>
+        </div>
+      `;
+    });
+  
+    let forecastElement = document.querySelector("#forecast");// when the loop is over we select the forecast Element and change the inner html mit der id forecast 
+    forecastElement.innerHTML = forecastHtml;
+  }
+displayForecast(); //1 we ware calling the function displayForecast() {
