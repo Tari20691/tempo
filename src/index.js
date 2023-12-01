@@ -58,6 +58,11 @@ searchFormElement.addEventListener("submit", handleSearchSubmit);
 
 searchCity("Berlin");//default city am Anfang wird jetzt immer Berlin sein
 
+function formatDay(timestamp) {// hier formatieren wir den richtigen Tag
+  let date = new Date(timestamp *1000);//*1000 weil es in Miliseconds is
+  let days =["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[date.getDay()];
+}
 function getForecast(city) {
     let apiKey = "o1b51294bd100044e1tab17f08833d34";
     let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
@@ -66,25 +71,27 @@ function getForecast(city) {
 
 
 function displayForecast(response) { //2 function calls the following 10 lines
-    console.log(response.data);
-
-    let days = ["Tue", "Wed", "Thu", "Fri", "Sat"];// 3 Zuerst calles the den array der Tage
-    let forecastHtml = "";// 4 eine neue empty HTML variable wird erstellt, aber da sollen eben all die Forecast data von unten rein
+ 
   
-    days.forEach(function (day) {// 5 deswegen loopen wir zu den einzelnen Tagen, one at a time
+    let forecastHtml = "";// 4 eine neue empty HTML variable wird erstellt, aber da sollen eben all die Forecast data von unten rein
+    
+  
+    response.data.daily.forEach(function (day, index) {// 5 deswegen loopen wir zu den einzelnen Tagen, one at a time und wir haben 0-6 Tage wir ollen aber nur 5 im Forecast deswegen index
+      if (index <5){// zeigt nicht mehr als 5 Tage forecast an
       forecastHtml =//6 variable forecast html soll be equal to the whole text below, but with the array of days in it
         forecastHtml +
         `
         <div class="weather-forecast-day">
-          <div class="weather-forecast-date">${day}</div>
-          <div class="weather-forecast-icon">🌤️</div>
+          <div class="weather-forecast-date">${formatDay(day.time)}</div>
+          <img src="${day.condition.icon_url}" class="weather-forecast-icon"/>
           <div class="weather-forecast-temperatures">
-          <span class="weather-forecast-temperature-max">18°</span> 
-          <span class="weather-forecast-temperature-min">12°</span>  
+          <span class="weather-forecast-temperature-max">${Math.round(day.temperature.maximum)}°</span> 
+          <span class="weather-forecast-temperature-min">${Math.round(day.temperature.minimum)}°</span>  
       </div>
           </div>
         </div>
       `;
+    }
     });
   
     let forecastElement = document.querySelector("#forecast");// when the loop is over we select the forecast Element and change the inner html mit der id forecast 
